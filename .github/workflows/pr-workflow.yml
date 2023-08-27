@@ -1,0 +1,36 @@
+name: Docker Compose Test with Doppler
+
+on: [pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
+
+    - name: Cache Docker layers
+      uses: actions/cache@v2
+      with:
+        path: /tmp/.buildx-cache
+        key: ${{ runner.os }}-buildx-${{ github.sha }}
+        restore-keys: |
+          ${{ runner.os }}-buildx-
+
+    - name: Install Doppler CLI
+      run: |
+        curl -Ls https://cli.doppler.com/install.sh | sh
+
+    - name: Fetch secrets from Doppler and run Docker Compose
+      run: |
+        eval $(doppler run -- printenv)
+        docker-compose up --build -d
+        docker-compose run test
+
+    - name: Stop and remove Docker containers
+      if: always()
+      run: docker-compose down
