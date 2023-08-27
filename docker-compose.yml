@@ -48,7 +48,7 @@ services:
     container_name: events_app_test
     build: 
       context: .
-      dockerfile: .docker/Dockerfile
+      dockerfile: .docker/TestsDockerfile
     environment:
       - POSTGRES_USER=${DB_USER}
       - POSTGRES_PASSWORD=${DB_PASSWORD}
