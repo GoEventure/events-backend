@@ -1,9 +1,9 @@
-name: Docker Compose Test with Doppler
+name: Run Backend API Tests
 
 on: [pull_request]
 
 jobs:
-  test:
+  backend-tests:
     runs-on: ubuntu-latest
 
     steps:
@@ -26,6 +26,8 @@ jobs:
         sudo curl -Ls https://cli.doppler.com/install.sh | sudo sh
 
     - name: Fetch secrets from Doppler and run Docker Compose
+      env:
+        DOPPLER_TOKEN: ${{ secrets.DOPPLER_TOKEN }}
       run: |
         eval $(doppler run -- printenv)
         docker-compose up --build -d
