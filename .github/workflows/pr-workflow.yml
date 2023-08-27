@@ -23,7 +23,7 @@ jobs:
 
     - name: Install Doppler CLI
       run: |
-        sudo curl -Ls https://cli.doppler.com/install.sh | sh
+        sudo curl -Ls https://cli.doppler.com/install.sh | sudo sh
 
     - name: Fetch secrets from Doppler and run Docker Compose
       run: |
