@@ -18,12 +18,12 @@ GoEventure Events Backend
 # 🚀 Up and run in 5 mins 🕙
 Make sure you have docker and docker-compose installed [docker installation guide](https://docs.docker.com/compose/install/)
 ## Step 1
-create **.env** file in root folder .env
+create **.env** file in root folder or use [Doppler](www.doppler.com) for secrets mgmt.
 ```
-DATABASE_URL=postgresql+psycopg://postgres:password@db:5432/boiler_plate_db
+DATABASE_URL=postgresql+psycopg://postgres:password@db:5432/events_db
 DB_USER=postgres
 DB_PASSWORD=password
-DB_NAME=boiler_plate_db 
+DB_NAME=events_db 
 PGADMIN_EMAIL=admin@admin.com
 PGADMIN_PASSWORD=admin
 X_TOKEN=12345678910
