@@ -31,7 +31,6 @@ jobs:
         PGADMIN_PASSWORD: ${{ secrets.PGADMIN_PASSWORD }}
         X_TOKEN: ${{ secrets.X_TOKEN }}
       run: |
-        eval $(doppler run -- printenv)
         docker-compose up --build -d
         docker-compose run test
 
