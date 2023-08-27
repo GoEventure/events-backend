@@ -11,7 +11,7 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v1
+      uses: docker/setup-buildx-action@v2
 
     - name: Cache Docker layers
       uses: actions/cache@v2
@@ -21,13 +21,15 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-buildx-
 
-    - name: Install Doppler CLI
-      run: |
-        sudo curl -Ls https://cli.doppler.com/install.sh | sudo sh
-
-    - name: Fetch secrets from Doppler and run Docker Compose
+    - name: Setup Docker and Run Tests
       env:
-        DOPPLER_TOKEN: ${{ secrets.DOPPLER_TOKEN }}
+        DB_USER: ${{ secrets.DB_USER }}
+        DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+        DB_NAME: ${{ secrets.DB_NAME }}
+        DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        PGADMIN_EMAIL: ${{ secrets.PGADMIN_EMAIL }}
+        PGADMIN_PASSWORD: ${{ secrets.PGADMIN_PASSWORD }}
+        X_TOKEN: ${{ secrets.X_TOKEN }}
       run: |
         eval $(doppler run -- printenv)
         docker-compose up --build -d
