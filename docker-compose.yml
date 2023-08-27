@@ -29,6 +29,12 @@ services:
     build: 
       context: .
       dockerfile: .docker/Dockerfile
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - DATABASE_URL=${DATABASE_URL}
+      - POSTGRES_DB=${DB_NAME}
+      - X_TOKEN=${X_TOKEN}
     command: bash -c "alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload"
     volumes:
       - .:/app
@@ -43,6 +49,12 @@ services:
     build: 
       context: .
       dockerfile: .docker/Dockerfile
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - DATABASE_URL=${DATABASE_URL}
+      - POSTGRES_DB=${DB_NAME}
+      - X_TOKEN=${X_TOKEN}
     command: pytest
     volumes:
       - .:/app
