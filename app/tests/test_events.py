@@ -15,7 +15,7 @@ Base.metadata.create_all(bind=engine)
 X_TOKEN = os.environ["X_TOKEN"]
 HEADERS = {"X-Token": X_TOKEN}
 ENDPOINT = "/api/events"
-LAST_RECORD_ID = 1
+LAST_RECORD_ID = 2
 PAYLOAD = {
     "name": "Cool Karoke Event",
     "description": "Come get your inner rock on while singing some of the best tunes around at music karoke.",  # noqa: E501
@@ -72,7 +72,7 @@ def test_get_event(client):
 
 def test_add_invalid_event(client):
     """
-    Tests if it validates the inavlid payload
+    Tests if it validates the invalid payload
     """
 
     invalid_payload = PAYLOAD.copy()
