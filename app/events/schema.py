@@ -1,10 +1,10 @@
-from pydantic import BaseModel, Field, conint
-from typing import Optional
+from pydantic import BaseModel
+from pydantic import Field
 
-DESC_EXAMPLE = "Come get your inner rock on while singing some of the best tunes around at music karoke."
+DESC_EXAMPLE = 'Come get your inner rock on while singing some of the best tunes around at music karoke.' # noqa: E501
 
 
 class EventSchema(BaseModel):
 
-    name: str = Field(example="Cool Karoke Event")
+    name: str = Field(example='Cool Karoke Event')
     description: str = Field(example=DESC_EXAMPLE)

@@ -1,6 +1,7 @@
 import logging
 import sys
 from pprint import pformat
+
 from loguru import logger
 from loguru._defaults import LOGURU_FORMAT
 
@@ -34,22 +35,16 @@ def format_record(record: dict) -> str:
     Custom format for loguru loggers.
     Uses pformat for log any data like request/response body during debug.
     Works with logging if loguru handler it.
-    Example:
-    >>> payload = [{"users":[{"name": "Nick", "age": 87, "is_active": True}, {"name": "Alex", "age": 27, "is_active": True}], "count": 2}]
-    >>> logger.bind(payload=).debug("users payload")
-    >>> [   {   'count': 2,
-    >>>         'users': [   {'age': 87, 'is_active': True, 'name': 'Nick'},
-    >>>                      {'age': 27, 'is_active': True, 'name': 'Alex'}]}]
     """
 
     format_string = LOGURU_FORMAT
-    if record["extra"].get("payload") is not None:
-        record["extra"]["payload"] = pformat(
-            record["extra"]["payload"], indent=4, compact=True, width=88
+    if record['extra'].get('payload') is not None:
+        record['extra']['payload'] = pformat(
+            record['extra']['payload'], indent=4, compact=True, width=88
         )
-        format_string += "\n<level>{extra[payload]}</level>"
+        format_string += '\n<level>{extra[payload]}</level>'
 
-    format_string += "{exception}\n"
+    format_string += '{exception}\n'
     return format_string
 
 
@@ -68,7 +63,7 @@ def init_logging():
     INFO:     Waiting for application startup.
     2020-07-25 02:19:21.357 | INFO     | uvicorn.lifespan.on:startup:34 - Application startup complete.
 
-    """
+    """ # noqa: E501
 
     # disable handlers for specific uvicorn loggers
     # to redirect their output to the default uvicorn logger
@@ -76,17 +71,17 @@ def init_logging():
     loggers = (
         logging.getLogger(name)
         for name in logging.root.manager.loggerDict
-        if name.startswith("uvicorn.")
+        if name.startswith('uvicorn.')
     )
     for uvicorn_logger in loggers:
         uvicorn_logger.handlers = []
 
     # change handler for default uvicorn logger
     intercept_handler = InterceptHandler()
-    logging.getLogger("uvicorn").handlers = [intercept_handler]
+    logging.getLogger('uvicorn').handlers = [intercept_handler]
 
     # set logs output, level and format
     logger.configure(
-        handlers=[{"sink": sys.stdout, "level": logging.INFO, "format": format_record}]
+        handlers=[{'sink': sys.stdout, 'level': logging.INFO, 'format': format_record}]
     )
-    logger.add("app.log")
+    logger.add('app.log')
