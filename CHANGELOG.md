@@ -1,3 +1,9 @@
+## 1.2.0 (2023-08-29)
+
+### Feat
+
+- **commitizen**: updating commiziten to update versions in pyproject file (#8)
+
 ## 1.1.0 (2023-08-29)
 
 ### Feat
