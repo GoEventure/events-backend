@@ -16,7 +16,7 @@ def orjson_serializer(obj):
     Note that `orjson.dumps()` return byte array, while sqlalchemy expects string,
     thus `decode()` call.
     This function helped to solve JSON datetime conversion issue on JSONB column
-    """
+    """  # noqa: E501
     return orjson.dumps(
         obj, option=orjson.OPT_SERIALIZE_NUMPY | orjson.OPT_NAIVE_UTC
     ).decode()

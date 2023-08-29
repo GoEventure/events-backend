@@ -6,15 +6,15 @@ from sqlalchemy.orm import sessionmaker
 from app.core.db.session import get_db
 from app.main import app
 
-SQLALCHEMY_DATABASE_URL = 'sqlite:///./test.db'
+SQLALCHEMY_DATABASE_URL = "sqlite:///./test.db"
 
 engine = create_engine(
-    SQLALCHEMY_DATABASE_URL, connect_args={'check_same_thread': False}
+    SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False}
 )
-TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)  # noqa: E501
 
 
-@pytest.fixture(scope='function')
+@pytest.fixture(scope="function")
 def client():
     def override_get_db():
         try:
