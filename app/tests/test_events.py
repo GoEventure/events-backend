@@ -2,7 +2,7 @@ import os
 
 from dotenv import load_dotenv
 
-from app.core.db.mock_session import engine
+from app.core.db.mock_session import engine, client
 from app.core.db.session import Base
 
 load_dotenv('.env')
