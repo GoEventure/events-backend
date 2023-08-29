@@ -10,7 +10,7 @@ from app.core.main_router import router as main_router
 from app.events import events_router
 
 load_dotenv(".env")
-api_version = "1.0.0"
+api_version = "1.1.0"
 
 root_router = APIRouter()
 
