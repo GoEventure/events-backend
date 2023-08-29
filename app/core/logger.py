@@ -10,7 +10,7 @@ class InterceptHandler(logging.Handler):
     """
     Default handler from examples in loguru documentaion.
     See https://loguru.readthedocs.io/en/stable/overview.html#entirely-compatible-with-standard-logging
-    """
+    """  # noqa: E501
 
     def emit(self, record: logging.LogRecord):
         # Get corresponding Loguru level if it exists
@@ -63,7 +63,7 @@ def init_logging():
     INFO:     Waiting for application startup.
     2020-07-25 02:19:21.357 | INFO     | uvicorn.lifespan.on:startup:34 - Application startup complete.
 
-    """ # noqa: E501
+    """  # noqa: E501
 
     # disable handlers for specific uvicorn loggers
     # to redirect their output to the default uvicorn logger
@@ -82,6 +82,6 @@ def init_logging():
 
     # set logs output, level and format
     logger.configure(
-        handlers=[{'sink': sys.stdout, 'level': logging.INFO, 'format': format_record}]
+        handlers=[{'sink': sys.stdout, 'level': logging.INFO, 'format': format_record}]  # noqa: E501
     )
     logger.add('app.log')
