@@ -23,6 +23,16 @@ PAYLOAD = {
 }
 
 
+# write test for healthcheck
+def test_healthcheck(client):
+    """
+    Test if the healthcheck endpoint is working
+    """
+    response = client.get("/api/healthcheck")
+    assert response.status_code == 200
+    assert response.json() == {"status": "Ok"}
+
+
 def test_invalid_x_token(client):
     """
     Test if it the endpoint is invalid without the token
@@ -32,7 +42,6 @@ def test_invalid_x_token(client):
 
 
 def test_add_event(client):
-
     """
     Tests if the events are being added to the database
     """
@@ -50,7 +59,6 @@ def test_add_event(client):
 
 
 def test_get_event(client):
-
     """
     Tests if the events get request is successfull
     """
@@ -64,7 +72,6 @@ def test_get_event(client):
 
 
 def test_add_invalid_event(client):
-
     """
     Tests if it validates the inavlid payload
     """
@@ -79,7 +86,6 @@ def test_add_invalid_event(client):
 
 
 def test_update_event(client):
-
     """
     Tests if the event is being updated
     """
@@ -95,7 +101,6 @@ def test_update_event(client):
 
 
 def test_invalid_update_event(client):
-
     """
     Tests if it doesn't update with invalid id
     """
@@ -109,7 +114,6 @@ def test_invalid_update_event(client):
 
 
 def test_delete_event(client):
-
     """
     Tests if the event is being deleted
     """
@@ -121,7 +125,6 @@ def test_delete_event(client):
 
 
 def test_invalid_delete_event(client):
-
     """
     Tests if it doesn't delete with invalid id
     """
