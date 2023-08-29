@@ -1,4 +1,4 @@
-<h1 align="center"> 
+<h1 align="center">
 GoEventure Events Backend
 </h1>
 
@@ -23,7 +23,7 @@ create **.env** file in root folder or use [Doppler](www.doppler.com) for secret
 DATABASE_URL=postgresql+psycopg://postgres:password@db:5432/events_db
 DB_USER=postgres
 DB_PASSWORD=password
-DB_NAME=events_db 
+DB_NAME=events_db
 PGADMIN_EMAIL=admin@admin.com
 PGADMIN_PASSWORD=admin
 X_TOKEN=12345678910

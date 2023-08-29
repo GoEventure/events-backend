@@ -1,25 +1,24 @@
 import os
+
 from dotenv import load_dotenv
-from unittest.mock import Mock, patch
 
-from app.main import app
+from app.core.db.mock_session import engine
 from app.core.db.session import Base
-from app.core.db.mock_session import engine, client
 
-load_dotenv(".env")
+load_dotenv('.env')
 
 # It drops everything from the db and then recreate each time tests runs
 Base.metadata.drop_all(bind=engine)
 Base.metadata.create_all(bind=engine)
 
 
-X_TOKEN = os.environ["X_TOKEN"]
-HEADERS = {"X-Token": X_TOKEN}
-ENDPOINT = "/api/events"
+X_TOKEN = os.environ['X_TOKEN']
+HEADERS = {'X-Token': X_TOKEN}
+ENDPOINT = '/api/events'
 LAST_RECORD_ID = 1
 PAYLOAD = {
-    "name": "Cool Karoke Event",
-    "description": "Come get your inner rock on while singing some of the best tunes around at music karoke.",
+    'name': 'Cool Karoke Event',
+    'description': 'Come get your inner rock on while singing some of the best tunes around at music karoke.', # noqa: E501
 }
 
 
@@ -28,9 +27,9 @@ def test_healthcheck(client):
     """
     Test if the healthcheck endpoint is working
     """
-    response = client.get("/api/healthcheck")
+    response = client.get('/api/healthcheck')
     assert response.status_code == 200
-    assert response.json() == {"status": "Ok"}
+    assert response.json() == {'status': 'Ok'}
 
 
 def test_invalid_x_token(client):
@@ -55,7 +54,7 @@ def test_add_event(client):
     print(data)
 
     # validates the saved record
-    assert ("name" in data) and ("description" in data)
+    assert ('name' in data) and ('description' in data)
 
 
 def test_get_event(client):
@@ -65,7 +64,7 @@ def test_get_event(client):
 
     response = client.get(ENDPOINT, headers=HEADERS)
 
-    LAST_RECORD_ID = response.json()[-1]["id"]
+    response.json()[-1]['id']
 
     # validates if the request was successfull
     assert response.status_code == 200
@@ -77,7 +76,7 @@ def test_add_invalid_event(client):
     """
 
     invalid_payload = PAYLOAD.copy()
-    invalid_payload.pop("name", None)
+    invalid_payload.pop('name', None)
 
     response = client.post(ENDPOINT, json=invalid_payload, headers=HEADERS)
 
@@ -91,9 +90,9 @@ def test_update_event(client):
     """
 
     updated_payload = PAYLOAD.copy()
-    updated_payload["name"] = "New Karoke Event"
+    updated_payload['name'] = 'New Karoke Event'
     response = client.put(
-        f"{ENDPOINT}/{LAST_RECORD_ID}", json=updated_payload, headers=HEADERS
+        f'{ENDPOINT}/{LAST_RECORD_ID}', json=updated_payload, headers=HEADERS
     )
 
     # validates if the request was successfull
@@ -106,8 +105,8 @@ def test_invalid_update_event(client):
     """
 
     updated_payload = PAYLOAD.copy()
-    updated_payload["name"] = "New Karoke Event"
-    response = client.put(f"{ENDPOINT}/12345", json=updated_payload, headers=HEADERS)
+    updated_payload['name'] = 'New Karoke Event'
+    response = client.put(f'{ENDPOINT}/12345', json=updated_payload, headers=HEADERS)
 
     # validates if the it threw an error on invalid id
     assert response.status_code == 404
@@ -118,7 +117,7 @@ def test_delete_event(client):
     Tests if the event is being deleted
     """
 
-    response = client.delete(f"{ENDPOINT}/{LAST_RECORD_ID}", headers=HEADERS)
+    response = client.delete(f'{ENDPOINT}/{LAST_RECORD_ID}', headers=HEADERS)
 
     # validates if the request was successfull
     assert response.status_code == 204
@@ -129,7 +128,7 @@ def test_invalid_delete_event(client):
     Tests if it doesn't delete with invalid id
     """
 
-    response = client.delete(f"{ENDPOINT}/12345", headers=HEADERS)
+    response = client.delete(f'{ENDPOINT}/12345', headers=HEADERS)
 
     # validates if the it threw an error on invalid id
     assert response.status_code == 404
