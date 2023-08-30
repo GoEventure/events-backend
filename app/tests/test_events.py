@@ -15,7 +15,7 @@ Base.metadata.create_all(bind=engine)
 X_TOKEN = os.environ["X_TOKEN"]
 HEADERS = {"X-Token": X_TOKEN}
 ENDPOINT = "/api/events"
-LAST_RECORD_ID = 2
+LAST_RECORD_ID = 1
 PAYLOAD = {
     "name": "Cool Karoke Event",
     "description": "Come get your inner rock on while singing some of the best tunes around at music karoke.",  # noqa: E501
