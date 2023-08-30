@@ -17,6 +17,7 @@ RUN curl -sSL https://install.python-poetry.org/ | python3 -
 ENV PATH=$POETRY_HOME/bin:$PATH
 ENV PYTHONFAULTHANDLER=1
 ENV PYTHONUNBUFFERED=1
+ENV POETRY_VIRTUALENVS_CREATE=0
 
 # Create a working directory.
 WORKDIR /app
