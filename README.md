@@ -44,3 +44,10 @@ docker-compose up
 - Swagger docs on `localhost:8000/docs`
 
 - PgAdmin on `localhost:5050`
+
+
+# Run Tests Locally
+
+`doppler run -- docker-compose -f docker-compose-test.yml build`
+
+`doppler run -- docker-compose -f docker-compose-test.yml run test`

@@ -1,0 +1,32 @@
+version: "3.8"
+
+services:
+
+  db:
+    container_name: events_db
+    image: postgres
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+
+  test:
+    container_name: events_app_test
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - ENVIRONMENT=development
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - DATABASE_URL=${DATABASE_URL}
+      - POSTGRES_DB=${DB_NAME}
+      - X_TOKEN=${X_TOKEN}
+    command: bash -c "alembic upgrade head && pytest --cov=app --cov-report=xml"
+    volumes:
+      - .:/app
+    depends_on:
+      - db

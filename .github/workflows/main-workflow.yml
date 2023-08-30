@@ -34,8 +34,8 @@ jobs:
           PGADMIN_PASSWORD: ${{ secrets.PGADMIN_PASSWORD }}
           X_TOKEN: ${{ secrets.X_TOKEN }}
         run: |
-          docker-compose up --build -d
-          docker-compose run test
+          docker-compose -f docker-compose-test.yml build
+          docker-compose -f docker-compose-test.yml run test
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v2
@@ -46,4 +46,4 @@ jobs:
 
       - name: Stop and remove Docker containers
         if: always()
-        run: docker-compose down
+        run: docker-compose -f docker-compose-test.yml down -v
