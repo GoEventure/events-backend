@@ -29,9 +29,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    args:
-      - ENVIRONMENT=production
     environment:
+      - ENVIRONMENT=production
       - POSTGRES_USER=${DB_USER}
       - POSTGRES_PASSWORD=${DB_PASSWORD}
       - DATABASE_URL=${DATABASE_URL}
@@ -51,9 +50,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    args:
-      - ENVIRONMENT=development
     environment:
+      - ENVIRONMENT=testing
       - POSTGRES_USER=${DB_USER}
       - POSTGRES_PASSWORD=${DB_PASSWORD}
       - DATABASE_URL=${DATABASE_URL}
